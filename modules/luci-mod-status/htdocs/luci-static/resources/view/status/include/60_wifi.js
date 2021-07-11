@@ -171,8 +171,8 @@ return baseclass.extend({
 
 	isWPSEnabled: {},
 
-	load: function() {
-		return Promise.all([
+	load: async function() {
+		const ret = await Promise.all([
 			network.getWifiDevices(),
 			network.getWifiNetworks(),
 			network.getHostHints(),
@@ -202,6 +202,7 @@ return baseclass.extend({
 				return data;
 			});
 		}, this));
+		return ret;
 	},
 
 	isDeviceAdded: {},

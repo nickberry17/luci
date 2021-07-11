@@ -17,12 +17,13 @@ return baseclass.extend({
 	isMACStatic: {},
 	isDUIDStatic: {},
 
-	load: function() {
-		return Promise.all([
+	load: async function() {
+		ret = await Promise.all([
 			callLuciDHCPLeases(),
 			network.getHostHints(),
 			L.resolveDefault(uci.load('dhcp'))
 		]);
+		return ret;
 	},
 
 	handleCreateStaticLease: function(lease, ev) {

@@ -16,12 +16,13 @@ var callSystemInfo = rpc.declare({
 return baseclass.extend({
 	title: _('System'),
 
-	load: function() {
-		return Promise.all([
+	load: async function() {
+		const ret = await Promise.all([
 			L.resolveDefault(callSystemBoard(), {}),
 			L.resolveDefault(callSystemInfo(), {}),
 			fs.lines('/usr/lib/lua/luci/version.lua')
 		]);
+		return ret;
 	},
 
 	render: function(data) {

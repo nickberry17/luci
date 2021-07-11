@@ -62,13 +62,14 @@ function renderbox(ifc, ipv6) {
 return baseclass.extend({
 	title: _('Network'),
 
-	load: function() {
-		return Promise.all([
+	load: async function() {
+		const ret = await Promise.all([
 			fs.trimmed('/proc/sys/net/netfilter/nf_conntrack_count'),
 			fs.trimmed('/proc/sys/net/netfilter/nf_conntrack_max'),
 			network.getWANNetworks(),
 			network.getWAN6Networks()
 		]);
+		return ret;
 	},
 
 	render: function(data) {
